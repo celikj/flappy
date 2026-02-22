@@ -23,9 +23,9 @@ class Game {
         // Game entities
         this.bird = new Bird(this.ctx, this.canvasWidth, this.canvasHeight);
         
-        // Pipes array for multiple pipes
+        // Pipes array for multiple pipes (tuned for easier gameplay)
         this.pipes = [];
-        this.pipeGap = 250; // Horizontal gap between pipes (further increased for easier gameplay with more reaction time and space)
+        this.pipeGap = 300; // Horizontal gap between pipes (increased for even more reaction time and space between obstacles)
         this.frameCount = 0; // For spawning pipes
 
         // Scoring system
@@ -54,17 +54,38 @@ class Game {
     }
 
     /**
-     * Sets up keyboard and mouse/touch input for flapping.
+     * Sets up keyboard and mouse/touch input for flapping during game,
+     * plus space/enter for starting/restarting from menus/game over UI.
+     * This makes controls intuitive (e.g., space to play from start screen).
      */
     setupInputListeners() {
-        // Space key or click/tap to flap (only during game)
+        // Global keydown listener for all inputs
         document.addEventListener('keydown', (e) => {
+            // Space/Enter to start or restart when in menu or game over state
+            // (checks UI visibility; prevents flap during menus)
+            if ((e.code === 'Space' || e.code === 'Enter') &&
+                (!this.isRunning || this.isGameOver)) {
+                // Check if menu or game-over is visible
+                const menuVisible = this.menu.menuElement.style.display !== 'none';
+                const gameOverVisible = this.menu.gameOverElement &&
+                    this.menu.gameOverElement.style.display !== 'none';
+                if (menuVisible || gameOverVisible) {
+                    e.preventDefault();
+                    // Use startGame callback (works for both main menu and game over)
+                    // This triggers reset via Menu's onStart
+                    this.startGame();
+                    return;
+                }
+            }
+
+            // Space to flap only during active gameplay (prevent default to avoid page scroll)
             if (e.code === 'Space' && this.isRunning && !this.isGameOver) {
                 e.preventDefault();
                 this.bird.flap();
             }
         });
 
+        // Click/tap on canvas for flapping (only during game; menus use buttons)
         this.canvas.addEventListener('click', () => {
             if (this.isRunning && !this.isGameOver) {
                 this.bird.flap();

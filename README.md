@@ -35,8 +35,10 @@ flappy/
 Alternatively, open `index.html` directly in browser (may have CORS issues with modules; server recommended).
 
 ## Controls
-- **Flap**: Spacebar or Mouse Click / Tap
+- **Start/Restart Game** (from main menu or game over screen): Spacebar, Enter, or Click Button
+- **Flap** (during gameplay): Spacebar or Mouse Click / Tap
 - Goal: Pass through pipes without colliding to increase score.
+- *Note: Game tuned to be beginner-friendly with slower speeds, larger gaps, and forgiving physics.*
 
 ## Development Notes
 - Code is commented with JSDoc for readability.

@@ -17,13 +17,14 @@ export class Bird {
         
         // Bird properties (slightly reduced size for easier maneuvering and passage through pipes)
         // Visual drawing remains appealing; hitbox ties to size for simpler collisions
+        // Gravity/jump further tuned for even easier, more forgiving gameplay
         this.width = 30;  // Bird width (reduced)
         this.height = 20; // Bird height (reduced)
         this.x = 50;      // Starting x position
         this.y = canvasHeight / 2; // Starting y position (center)
         this.velocity = 0; // Vertical velocity
-        this.gravity = 0.25; // Gravity pulling down (reduced for slower, more playable fall)
-        this.jumpStrength = -8; // Upward velocity on jump (tuned for balance with lower gravity)
+        this.gravity = 0.2;  // Gravity pulling down (further reduced for slower, easier fall)
+        this.jumpStrength = -7; // Upward velocity on jump (gentler for more controlled flaps)
         this.color = '#ffcc00'; // Yellow color for bird
     }
 
