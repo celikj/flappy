@@ -1,0 +1,13 @@
+# .gitignore - Typical for Node.js web project
+
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Optional
+.DS_Store
+*.log
+
+# Build outputs if any
+dist/
+build/
