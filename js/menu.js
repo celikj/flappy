@@ -27,16 +27,22 @@ export class Menu {
 
     /**
      * Shows the main menu.
+     * Removes .hidden class (CSS handles flex display) - ensures "Flappy Bird"
+     * screen disappears completely when game active.
      */
     show() {
-        this.menuElement.style.display = 'flex';
+        // Remove hidden class for reliability (!important in CSS overrides any conflicts)
+        // Base CSS sets flex for centering overlay
+        this.menuElement.classList.remove('hidden');
     }
 
     /**
-     * Hides the main menu.
+     * Hides the main menu using robust .hidden class.
+     * Guarantees screen disappears (no persistence) when game active.
      */
     hide() {
-        this.menuElement.style.display = 'none';
+        // Add hidden class (with !important in CSS) for override-proof hiding
+        this.menuElement.classList.add('hidden');
     }
 
     /**
@@ -49,17 +55,20 @@ export class Menu {
         if (finalScoreEl) {
             finalScoreEl.textContent = `Your Score: ${score}`;
         }
-        // Show as flex for centering (matches CSS)
-        this.gameOverElement.style.display = 'flex';
-        // Hide main menu and score to avoid overlap
+        // Hide main menu first to avoid overlap, then show game over
         this.hide();
+        // Remove hidden class (CSS base flex + !important ensure visibility)
+        this.gameOverElement.classList.remove('hidden');
     }
 
     /**
-     * Hides the game over UI overlay.
+     * Hides the game over UI overlay using robust .hidden class.
+     * Ensures screen disappears completely, fixing any persistence issues
+     * for both keyboard and button flows.
      */
     hideGameOver() {
-        this.gameOverElement.style.display = 'none';
+        // Add hidden class (!important in CSS) for reliability
+        this.gameOverElement.classList.add('hidden');
     }
 
     /**

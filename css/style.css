@@ -30,7 +30,8 @@ body {
     background-color: #70c5ce; /* Canvas background */
 }
 
-/* Main menu styles */
+/* Main menu styles - base display:flex for overlay; use .hidden class to hide
+ * (ensures "Flappy Bird" screen disappears reliably when game active) */
 .menu {
     position: absolute;
     top: 0;
@@ -38,7 +39,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    display: flex;
+    display: flex; /* Base for centering; hidden via class/JS */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -83,7 +84,9 @@ body {
     display: none; /* Hidden initially, shown during game */
 }
 
-/* Game Over screen styles (in-UI overlay to avoid browser alerts - better UX) */
+/* Game Over screen styles (in-UI overlay to avoid browser alerts - better UX).
+ * Base display:flex; hidden via .hidden class for robustness - guarantees
+ * game over screen disappears when game active, fixing persistence. */
 .game-over {
     position: absolute;
     top: 0;
@@ -91,12 +94,19 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Darker overlay for emphasis */
-    display: none; /* Hidden by default */
+    display: flex; /* Base for centering; hidden via class/JS */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     z-index: 10;
+}
+
+/* Utility for robust hiding of UI overlays (main menu, game over).
+ * Uses !important to override any style conflicts, ensuring screens
+ * disappear completely when game is active. Better than raw style.display. */
+.hidden {
+    display: none !important;
 }
 
 .game-over h1 {

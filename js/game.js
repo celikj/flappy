@@ -48,7 +48,11 @@ class Game {
         // Bind event listeners for input (flap)
         this.setupInputListeners();
 
-        // Show main menu initially
+        // Show main menu initially; explicitly hide game over UI for clean start
+        // (prevents any overlap if previous state lingers)
+        if (this.menu.gameOverElement) {
+            this.menu.hideGameOver();
+        }
         this.menu.show();
         this.gameLoop(); // Start the loop (will render menu state)
     }
@@ -57,25 +61,26 @@ class Game {
      * Sets up keyboard and mouse/touch input for flapping during game,
      * plus space/enter for starting/restarting from menus/game over UI.
      * This makes controls intuitive (e.g., space to play from start screen).
+     * UI hiding is delegated to Menu class to ensure overlays disappear when game is active.
      */
     setupInputListeners() {
         // Global keydown listener for all inputs
         document.addEventListener('keydown', (e) => {
             // Space/Enter to start or restart when in menu or game over state
-            // (checks UI visibility; prevents flap during menus)
+            // (uses game state for reliable check; prevents flap during menus)
             if ((e.code === 'Space' || e.code === 'Enter') &&
                 (!this.isRunning || this.isGameOver)) {
-                // Check if menu or game-over is visible
-                const menuVisible = this.menu.menuElement.style.display !== 'none';
-                const gameOverVisible = this.menu.gameOverElement &&
-                    this.menu.gameOverElement.style.display !== 'none';
-                if (menuVisible || gameOverVisible) {
-                    e.preventDefault();
-                    // Use startGame callback (works for both main menu and game over)
-                    // This triggers reset via Menu's onStart
-                    this.startGame();
-                    return;
+                e.preventDefault();
+                // Delegate to Menu class methods for proper UI hide (main menu vs game over)
+                // This ensures screens disappear reliably when game becomes active
+                if (this.isGameOver) {
+                    // From game over screen: use restart
+                    this.menu.restartGame();
+                } else {
+                    // From main menu: use startGame
+                    this.menu.startGame();
                 }
+                return;
             }
 
             // Space to flap only during active gameplay (prevent default to avoid page scroll)
@@ -95,8 +100,19 @@ class Game {
 
     /**
      * Starts a new game: resets entities, score, and state.
+     * Explicitly hides menu/game over UIs (via delegation where possible) to
+     * ensure overlays disappear completely when game is active. This fixes
+     * persistence issues for both button and keyboard starts.
      */
     startGame() {
+        // Delegate hide to Menu for main menu/game over (ensures UI screens
+        // are hidden; direct call from keyboard now routes here via menu methods)
+        if (this.menu) {
+            this.menu.hide();  // Hide main "Flappy Bird" menu
+            this.menu.hideGameOver();  // Hide game over screen
+        }
+
+        // Reset game entities/state
         this.bird.reset();
         this.pipes = [];
         this.score = 0;
