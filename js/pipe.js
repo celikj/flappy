@@ -19,7 +19,7 @@ export class Pipe {
         // Pipe properties
         this.width = 52;          // Pipe width
         this.x = x;               // Starting x position (off-screen initially)
-        this.speed = 2;           // Movement speed to the left
+        this.speed = 1.5;         // Movement speed to the left (reduced for slower, more playable gameplay)
         this.gap = 100;           // Gap between top and bottom pipe
         this.passed = false;      // Flag for scoring (bird passed this pipe)
         
