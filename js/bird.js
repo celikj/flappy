@@ -21,8 +21,8 @@ export class Bird {
         this.x = 50;      // Starting x position
         this.y = canvasHeight / 2; // Starting y position (center)
         this.velocity = 0; // Vertical velocity
-        this.gravity = 0.5; // Gravity pulling down
-        this.jumpStrength = -10; // Upward velocity on jump
+        this.gravity = 0.25; // Gravity pulling down (reduced for slower, more playable fall)
+        this.jumpStrength = -8; // Upward velocity on jump (tuned for balance with lower gravity)
         this.color = '#ffcc00'; // Yellow color for bird
     }
 
