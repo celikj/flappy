@@ -15,9 +15,10 @@ export class Bird {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         
-        // Bird properties
-        this.width = 34;  // Bird width
-        this.height = 24; // Bird height
+        // Bird properties (slightly reduced size for easier maneuvering and passage through pipes)
+        // Visual drawing remains appealing; hitbox ties to size for simpler collisions
+        this.width = 30;  // Bird width (reduced)
+        this.height = 20; // Bird height (reduced)
         this.x = 50;      // Starting x position
         this.y = canvasHeight / 2; // Starting y position (center)
         this.velocity = 0; // Vertical velocity
@@ -61,11 +62,11 @@ export class Bird {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
         
-        // Simple eye for better visibility
+        // Simple eye for better visibility (adjusted for reduced bird size)
         this.ctx.fillStyle = '#fff';
-        this.ctx.fillRect(this.x + 24, this.y + 4, 6, 6);
+        this.ctx.fillRect(this.x + 20, this.y + 4, 6, 6);
         this.ctx.fillStyle = '#000';
-        this.ctx.fillRect(this.x + 26, this.y + 6, 2, 2);
+        this.ctx.fillRect(this.x + 22, this.y + 6, 2, 2);
     }
 
     /**

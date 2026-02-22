@@ -20,11 +20,12 @@ export class Pipe {
         this.width = 52;          // Pipe width
         this.x = x;               // Starting x position (off-screen initially)
         this.speed = 1.5;         // Movement speed to the left (reduced for slower, more playable gameplay)
-        this.gap = 100;           // Gap between top and bottom pipe
+        this.gap = 150;           // Gap between top and bottom pipe (increased for easier passage through obstacles)
         this.passed = false;      // Flag for scoring (bird passed this pipe)
         
-        // Random height for top pipe, ensuring gap fits
-        this.topHeight = Math.floor(Math.random() * (canvasHeight / 2 - 50)) + 50;
+        // Random height for top pipe, ensuring gap fits AND easier gameplay
+        // Adjusted range for more centered/moderate pipe positions (less extreme highs/lows)
+        this.topHeight = Math.floor(Math.random() * (canvasHeight / 3 - 50)) + 60;  // Narrower, bird-friendly range
         this.bottomY = this.topHeight + this.gap;
         this.bottomHeight = canvasHeight - this.bottomY;
         

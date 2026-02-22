@@ -25,7 +25,7 @@ class Game {
         
         // Pipes array for multiple pipes
         this.pipes = [];
-        this.pipeGap = 200; // Horizontal gap between pipes (increased for more space/reaction time with slower pipes)
+        this.pipeGap = 250; // Horizontal gap between pipes (further increased for easier gameplay with more reaction time and space)
         this.frameCount = 0; // For spawning pipes
 
         // Scoring system
