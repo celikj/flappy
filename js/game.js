@@ -35,6 +35,16 @@ class Game {
         this.bestScore = parseInt(localStorage.getItem('flappyBestScore')) || 0;
         this.scoreDisplay = document.getElementById('score-display');
 
+        // Difficulty settings (standard modes: Easy/Normal/Hard consistent with game standards)
+        // Easy impl: param tuning for speed/gaps/gravity - applied in startGame
+        // Easy: forgiving; Normal: balanced; Hard: challenging
+        this.difficultySettings = {
+            easy: { gravity: 0.15, jumpStrength: -6, pipeSpeed: 1.0, pipeGap: 400, pipeVerticalGap: 300 },
+            normal: { gravity: 0.2, jumpStrength: -7, pipeSpeed: 1.45, pipeGap: 332, pipeVerticalGap: 250 },
+            hard: { gravity: 0.3, jumpStrength: -10, pipeSpeed: 2.0, pipeGap: 250, pipeVerticalGap: 150 }
+        };
+        this.difficulty = 'normal';  // Default
+
         // Menu system (now includes game over UI for in-game notifications
         // instead of disruptive browser alerts - improved UX)
         const menuElement = document.getElementById('menu');
@@ -105,11 +115,13 @@ class Game {
 
     /**
      * Starts a new game: resets entities, score, and state.
+     * Accepts difficulty param from menu (easy/normal/hard) to apply settings.
      * Explicitly hides menu/game over UIs (via delegation where possible) to
      * ensure overlays disappear completely when game is active. This fixes
      * persistence issues for both button and keyboard starts.
+     * @param {string} difficulty - 'easy', 'normal', or 'hard' (defaults to normal).
      */
-    startGame() {
+    startGame(difficulty = 'normal') {
         // Delegate hide to Menu for main menu/game over (ensures UI screens
         // are hidden; direct call from keyboard now routes here via menu methods)
         if (this.menu) {
@@ -117,8 +129,16 @@ class Game {
             this.menu.hideGameOver();  // Hide game over screen
         }
 
+        // Apply difficulty settings (standard tuning for modes - easy impl)
+        this.difficulty = difficulty;
+        const settings = this.difficultySettings[difficulty] || this.difficultySettings.normal;
+        this.pipeGap = settings.pipeGap;
+
         // Reset game entities/state (current score only; bestScore persists)
+        // Re-apply settings to bird for mode
         this.bird.reset();
+        this.bird.gravity = settings.gravity;
+        this.bird.jumpStrength = settings.jumpStrength;
         this.pipes = [];
         this.score = 0;
         this.updateScoreDisplay();
@@ -126,16 +146,18 @@ class Game {
         this.isGameOver = false;
         this.frameCount = 0;
         this.scoreDisplay.style.display = 'block'; // Show score
-        // Spawn first pipe
-        this.spawnPipe();
+        // Spawn first pipe (pass settings for pipe params)
+        this.spawnPipe(settings);
     }
 
     /**
      * Spawns a new pipe at the right edge.
+     * @param {Object} settings - Difficulty settings for pipe params (standard mode application).
      */
-    spawnPipe() {
+    spawnPipe(settings = this.difficultySettings.normal) {
         const pipeX = this.canvasWidth;
-        this.pipes.push(new Pipe(this.ctx, this.canvasWidth, this.canvasHeight, pipeX));
+        // Pass settings to Pipe for mode-specific speed/gap (easy impl)
+        this.pipes.push(new Pipe(this.ctx, this.canvasWidth, this.canvasHeight, pipeX, settings));
     }
 
     /**

@@ -99,6 +99,33 @@ body {
     /* Positioned naturally in flex menus; no absolute needed */
 }
 
+/* Difficulty selection buttons (standard modes: Easy/Normal/Hard for consistent game standards)
+ * Small buttons below start; active highlighted - easy implementation via data attrs */
+.difficulty-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.diff-btn {
+    padding: 8px 16px;  /* Compact for options */
+    font-size: 18px;
+    background-color: #666;  /* Gray base */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.diff-btn:hover {
+    background-color: #888;
+}
+
+.diff-btn.active {
+    background-color: #ffcc00;  /* Yellow for selected (normal default) */
+    font-weight: bold;
+}
+
 /* Game Over screen styles scaled for larger game area (400x700 canvas).
  * Base display:flex; hidden via .hidden class for robustness - guarantees
  * game over screen disappears when game active, fixing persistence. */

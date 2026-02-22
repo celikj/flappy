@@ -3,9 +3,10 @@
 A simple Flappy Bird clone implemented in vanilla JavaScript using HTML5 Canvas. Features include a main menu, scoring system, and modular code structure.
 
 ## Features
-- **Main Menu**: Start screen with button to begin the game.
+- **Main Menu**: Start screen with button to begin the game, plus difficulty selection (Easy/Normal/Hard).
 - **Scoring System**: Score increases each time the bird passes a pipe, with persistent best/high score (via localStorage).
 - **Gameplay**: Bird flaps on space key or click, avoids pipes.
+- **Difficulty Modes**: Standard Easy (forgiving), Normal (balanced), Hard (challenging) - tuned params for speed/gaps/gravity.
 - **Vanilla JS**: No external libraries; uses ES6 modules, classes for modularity.
 - **Larger Game Area**: Upscaled canvas (400x700) positioned near top of screen for improved visibility.
 - **Game Speed**: Tuned 21% faster for increased challenge alongside high scores.
@@ -47,6 +48,7 @@ Alternatively, open `index.html` directly in browser (may have CORS issues with 
 - Uses simple shapes (rectangles) for bird/pipes; easy to extend with sprites.
 - Game elements (bird, pipes, UI) scaled for larger 400x700 canvas area positioned near top.
 - Best/high score implemented with localStorage persistence and UI display (new best highlights).
+- Difficulty modes (Easy/Normal/Hard) added with standard param tuning for speeds/gaps/gravity - easy implementation.
 - Game speed increased 21% (pipe speed/spawn rate) for added challenge.
 - Game loop via `requestAnimationFrame`.
 - Collision detection and scoring implemented.

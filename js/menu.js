@@ -20,9 +20,19 @@ export class Menu {
         this.restartButton = restartButton;
         this.onStart = onStart;
         
+        // Difficulty state (standard modes: easy/normal/hard - defaults to normal)
+        // Easy impl using data attrs and active class for selection
+        this.difficulty = 'normal';
+
         // Bind event listeners for start and restart (both trigger game start)
         this.startButton.addEventListener('click', this.startGame.bind(this));
         this.restartButton.addEventListener('click', this.restartGame.bind(this));
+
+        // Bind difficulty buttons (query by class/data attr - simple and consistent with standards)
+        const diffButtons = this.menuElement.querySelectorAll('.diff-btn');
+        diffButtons.forEach(btn => {
+            btn.addEventListener('click', () => this.setDifficulty(btn.dataset.difficulty, diffButtons));
+        });
     }
 
     /**
@@ -108,23 +118,41 @@ export class Menu {
 
     /**
      * Handles starting the game when button is clicked.
+     * Passes current difficulty to game start for applying settings (standard mode handling).
      */
     startGame() {
         this.hide();
         this.hideGameOver();  // Ensure game over is hidden on start
         if (this.onStart) {
-            this.onStart();
+            // Pass difficulty for game to apply settings (easy impl)
+            this.onStart(this.difficulty);
         }
     }
 
     /**
      * Handles restart (reuses startGame logic for simplicity).
      * Triggered by restart button in game over UI.
+     * Passes current difficulty to game start.
      */
     restartGame() {
         this.hideGameOver();
         if (this.onStart) {
-            this.onStart();
+            // Pass difficulty for game to apply settings (standard mode handling)
+            this.onStart(this.difficulty);
         }
+    }
+
+    /**
+     * Sets the difficulty mode (easy/normal/hard).
+     * Updates active button styling and state - simple impl consistent with standard game menus.
+     * @param {string} difficulty - 'easy', 'normal', or 'hard'.
+     * @param {NodeList} diffButtons - All difficulty buttons for active class toggle.
+     */
+    setDifficulty(difficulty, diffButtons) {
+        this.difficulty = difficulty;
+        // Update active class on buttons (standard UX for mode selection)
+        diffButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.difficulty === difficulty);
+        });
     }
 }

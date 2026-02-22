@@ -16,6 +16,13 @@
             <h1>Flappy Bird</h1>
             <p id="best-score-menu" class="best-score">Best: 0</p>
             <button id="start-button">Start Game</button>
+            <!-- Difficulty selection buttons (standard modes: Easy/Normal/Hard for consistent standards)
+             * Easy: Slower, larger gaps; Normal: Balanced; Hard: Faster, tighter - easy to implement via params -->
+            <div id="difficulty-buttons" class="difficulty-buttons">
+                <button class="diff-btn" data-difficulty="easy">Easy</button>
+                <button class="diff-btn active" data-difficulty="normal">Normal</button>
+                <button class="diff-btn" data-difficulty="hard">Hard</button>
+            </div>
             <p>Press Space/Enter or Click to Start/Flap</p>
         </div>
         <!-- Game Over UI overlay (replaces browser alert for better UX).
