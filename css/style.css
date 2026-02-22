@@ -90,6 +90,15 @@ body {
     display: none; /* Hidden initially, shown during game */
 }
 
+/* Best/high score display (shown in menus/game over; gold color for emphasis) */
+.best-score {
+    font-size: 28px;  /* Scaled for larger UI */
+    color: #ffcc00;  /* Gold/yellow to highlight best score */
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Positioned naturally in flex menus; no absolute needed */
+}
+
 /* Game Over screen styles scaled for larger game area (400x700 canvas).
  * Base display:flex; hidden via .hidden class for robustness - guarantees
  * game over screen disappears when game active, fixing persistence. */

@@ -46,15 +46,50 @@ export class Menu {
     }
 
     /**
+     * Updates best/high score display in both menu and game over UI.
+     * @param {number} bestScore - Current best score from game.
+     * @param {boolean} newBest - If true, highlight new best (green flash).
+     */
+    updateBestScoreDisplay(bestScore = 0, newBest = false) {
+        // Update main menu best score
+        const bestMenuEl = document.getElementById('best-score-menu');
+        if (bestMenuEl) {
+            bestMenuEl.textContent = `Best: ${bestScore}`;
+            if (newBest) {
+                bestMenuEl.style.color = '#00ff00';  // Green flash for new best
+                setTimeout(() => { bestMenuEl.style.color = '#ffcc00'; }, 1500);
+            } else {
+                bestMenuEl.style.color = '#ffcc00';  // Default gold
+            }
+        }
+
+        // Update game over best score
+        const bestGameOverEl = document.getElementById('best-score-gameover');
+        if (bestGameOverEl) {
+            bestGameOverEl.textContent = `Best: ${bestScore}`;
+            if (newBest) {
+                bestGameOverEl.style.color = '#00ff00';  // Green flash
+                setTimeout(() => { bestGameOverEl.style.color = '#ffcc00'; }, 1500);
+            } else {
+                bestGameOverEl.style.color = '#ffcc00';  // Default gold
+            }
+        }
+    }
+
+    /**
      * Shows the game over UI overlay.
      * @param {number} score - The final score to display.
+     * @param {number} bestScore - Best/high score to display.
+     * @param {boolean} newBest - True if new best achieved (for highlight).
      */
-    showGameOver(score) {
+    showGameOver(score, bestScore = 0, newBest = false) {
         // Update final score display
         const finalScoreEl = this.gameOverElement.querySelector('#final-score');
         if (finalScoreEl) {
             finalScoreEl.textContent = `Your Score: ${score}`;
         }
+        // Update best score display and highlight if new best (green flash)
+        this.updateBestScoreDisplay(bestScore, newBest);
         // Hide main menu first to avoid overlap, then show game over
         this.hide();
         // Remove hidden class (CSS base flex + !important ensure visibility)

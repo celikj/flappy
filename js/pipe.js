@@ -21,7 +21,7 @@ export class Pipe {
         // Maintains difficulty balance while fitting expanded area
         this.width = 72;          // Pipe width (scaled up ~1.4x)
         this.x = x;               // Starting x position (off-screen initially, relative to canvasWidth)
-        this.speed = 1.2;         // Movement speed to the left (further reduced for slower, easier navigation)
+        this.speed = 1.45;        // Movement speed to the left (increased by 21% from previous for faster gameplay)
         this.gap = 250;           // Gap between top and bottom pipe (increased for easier passage on bigger canvas)
         this.passed = false;      // Flag for scoring (bird passed this pipe)
         

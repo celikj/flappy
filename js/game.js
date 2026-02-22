@@ -26,11 +26,13 @@ class Game {
         // Pipes array for multiple pipes (scaled/tuned for larger canvas and easier gameplay)
         // pipeGap increased proportionally to maintain spacing/density on wider area
         this.pipes = [];
-        this.pipeGap = 420; // Horizontal gap between pipes (scaled ~1.4x for consistent feel/reaction time)
+        this.pipeGap = 332; // Horizontal gap between pipes (reduced by ~21% for faster spawn rate and increased game speed)
         this.frameCount = 0; // For spawning pipes
 
-        // Scoring system
+        // Scoring system with best/high score persistence (using localStorage
+        // for browser storage - standard for web games, no server needed)
         this.score = 0;
+        this.bestScore = parseInt(localStorage.getItem('flappyBestScore')) || 0;
         this.scoreDisplay = document.getElementById('score-display');
 
         // Menu system (now includes game over UI for in-game notifications
@@ -54,6 +56,8 @@ class Game {
         if (this.menu.gameOverElement) {
             this.menu.hideGameOver();
         }
+        // Update best score display in menu (ensures high score shows on load/main menu)
+        this.menu.updateBestScoreDisplay(this.bestScore);
         this.menu.show();
         this.gameLoop(); // Start the loop (will render menu state)
     }
@@ -113,7 +117,7 @@ class Game {
             this.menu.hideGameOver();  // Hide game over screen
         }
 
-        // Reset game entities/state
+        // Reset game entities/state (current score only; bestScore persists)
         this.bird.reset();
         this.pipes = [];
         this.score = 0;
@@ -207,7 +211,20 @@ class Game {
     }
 
     /**
-     * Updates the score display in the UI.
+     * Updates best/high score if current score is higher and persists to localStorage.
+     * Called on game over; standard web game persistence.
+     */
+    updateBestScore() {
+        if (this.score > this.bestScore) {
+            this.bestScore = this.score;
+            localStorage.setItem('flappyBestScore', this.bestScore);
+            return true;  // New best achieved
+        }
+        return false;
+    }
+
+    /**
+     * Updates the score display in the UI (shows current; best shown in menus).
      */
     updateScoreDisplay() {
         this.scoreDisplay.textContent = `Score: ${this.score}`;
@@ -243,16 +260,20 @@ class Game {
     }
 
     /**
-     * Handles game over: stops running, hides score, and shows in-UI
-     * game over screen via Menu class (replaces old browser alert).
-     * User can restart via on-screen button for seamless flow.
+     * Handles game over: stops running, hides score, updates best/high score
+     * if beaten, and shows in-UI game over screen via Menu class (replaces
+     * old browser alert). User can restart via on-screen button for seamless flow.
      */
     gameOver() {
         this.isRunning = false;
         this.isGameOver = true;
         this.scoreDisplay.style.display = 'none'; // Hide score
-        // Menu now displays custom game over UI overlay
-        this.menu.showGameOver(this.score);
+
+        // Check/update best score (persists to localStorage)
+        const newBest = this.updateBestScore();
+
+        // Menu now displays custom game over UI overlay with best score
+        this.menu.showGameOver(this.score, this.bestScore, newBest);
     }
 }
 

@@ -10,18 +10,22 @@
     <div id="game-container">
         <!-- Larger canvas for expanded game area (upscaled from classic 288x512 for better visibility/playability) -->
         <canvas id="game-canvas" width="400" height="700"></canvas>
-        <!-- Main menu starts hidden via class for robust state; shown on init -->
+        <!-- Main menu starts hidden via class for robust state; shown on init.
+         * Includes best/high score display for motivation. -->
         <div id="menu" class="menu hidden">
             <h1>Flappy Bird</h1>
+            <p id="best-score-menu" class="best-score">Best: 0</p>
             <button id="start-button">Start Game</button>
             <p>Press Space/Enter or Click to Start/Flap</p>
         </div>
         <!-- Game Over UI overlay (replaces browser alert for better UX).
          * Starts hidden via class for robust state - ensures it disappears when
-         * game active, fixing persistence issues for both mouse/keyboard flows. -->
+         * game active, fixing persistence issues for both mouse/keyboard flows.
+         * Includes best/high score display. -->
         <div id="game-over" class="game-over hidden">
             <h1>Game Over</h1>
             <p id="final-score">Your Score: 0</p>
+            <p id="best-score-gameover" class="best-score">Best: 0</p>
             <p>Press Space/Enter or Click to Play Again</p>
             <button id="restart-button">Play Again</button>
         </div>
