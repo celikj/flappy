@@ -32,10 +32,14 @@ class Game {
         this.score = 0;
         this.scoreDisplay = document.getElementById('score-display');
 
-        // Menu system
+        // Menu system (now includes game over UI for in-game notifications
+        // instead of disruptive browser alerts - improved UX)
         const menuElement = document.getElementById('menu');
         const startButton = document.getElementById('start-button');
-        this.menu = new Menu(menuElement, startButton, this.startGame.bind(this));
+        const gameOverElement = document.getElementById('game-over');
+        const restartButton = document.getElementById('restart-button');
+        // Pass additional elements to Menu; onStart callback handles restart
+        this.menu = new Menu(menuElement, startButton, gameOverElement, restartButton, this.startGame.bind(this));
 
         // Game state
         this.isRunning = false;
@@ -201,12 +205,15 @@ class Game {
     }
 
     /**
-     * Handles game over: stop running, show menu via Menu class.
+     * Handles game over: stops running, hides score, and shows in-UI
+     * game over screen via Menu class (replaces old browser alert).
+     * User can restart via on-screen button for seamless flow.
      */
     gameOver() {
         this.isRunning = false;
         this.isGameOver = true;
         this.scoreDisplay.style.display = 'none'; // Hide score
+        // Menu now displays custom game over UI overlay
         this.menu.showGameOver(this.score);
     }
 }

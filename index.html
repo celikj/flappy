@@ -14,6 +14,12 @@
             <button id="start-button">Start Game</button>
             <p>Press Space or Click to Flap</p>
         </div>
+        <!-- Game Over UI overlay (replaces browser alert for better UX) -->
+        <div id="game-over" class="game-over">
+            <h1>Game Over</h1>
+            <p id="final-score">Your Score: 0</p>
+            <button id="restart-button">Play Again</button>
+        </div>
         <div id="score-display" class="score">Score: 0</div>
     </div>
     <script type="module" src="js/game.js"></script>
