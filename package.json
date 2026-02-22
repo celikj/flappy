@@ -1,0 +1,11 @@
+{
+  "name": "flappy",
+  "version": "1.0.0",
+  "description": "Flappy Bird game in vanilla JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -l 3000"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
