@@ -23,9 +23,10 @@ class Game {
         // Game entities
         this.bird = new Bird(this.ctx, this.canvasWidth, this.canvasHeight);
         
-        // Pipes array for multiple pipes (tuned for easier gameplay)
+        // Pipes array for multiple pipes (scaled/tuned for larger canvas and easier gameplay)
+        // pipeGap increased proportionally to maintain spacing/density on wider area
         this.pipes = [];
-        this.pipeGap = 300; // Horizontal gap between pipes (increased for even more reaction time and space between obstacles)
+        this.pipeGap = 420; // Horizontal gap between pipes (scaled ~1.4x for consistent feel/reaction time)
         this.frameCount = 0; // For spawning pipes
 
         // Scoring system

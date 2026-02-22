@@ -7,6 +7,7 @@ A simple Flappy Bird clone implemented in vanilla JavaScript using HTML5 Canvas.
 - **Scoring System**: Score increases each time the bird passes a pipe.
 - **Gameplay**: Bird flaps on space key or click, avoids pipes.
 - **Vanilla JS**: No external libraries; uses ES6 modules, classes for modularity.
+- **Larger Game Area**: Upscaled canvas (400x700) positioned near top of screen for improved visibility.
 - **Responsive Structure**: Organized like a typical web project.
 
 ## Project Structure
@@ -43,6 +44,7 @@ Alternatively, open `index.html` directly in browser (may have CORS issues with 
 ## Development Notes
 - Code is commented with JSDoc for readability.
 - Uses simple shapes (rectangles) for bird/pipes; easy to extend with sprites.
+- Game elements (bird, pipes, UI) scaled for larger 400x700 canvas area positioned near top.
 - Game loop via `requestAnimationFrame`.
 - Collision detection and scoring implemented.
 - Extendable: Add sounds, better graphics, high scores, etc.

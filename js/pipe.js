@@ -16,11 +16,13 @@ export class Pipe {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         
-        // Pipe properties (tuned for easier gameplay overall)
-        this.width = 52;          // Pipe width
-        this.x = x;               // Starting x position (off-screen initially)
+        // Pipe properties scaled for larger canvas (400x700) + tuned for easier gameplay
+        // Width/gap increased proportionally; random height range adapted to new height
+        // Maintains difficulty balance while fitting expanded area
+        this.width = 72;          // Pipe width (scaled up ~1.4x)
+        this.x = x;               // Starting x position (off-screen initially, relative to canvasWidth)
         this.speed = 1.2;         // Movement speed to the left (further reduced for slower, easier navigation)
-        this.gap = 180;           // Gap between top and bottom pipe (increased further for easier passage through obstacles)
+        this.gap = 250;           // Gap between top and bottom pipe (increased for easier passage on bigger canvas)
         this.passed = false;      // Flag for scoring (bird passed this pipe)
         
         // Random height for top pipe, ensuring gap fits AND easier gameplay

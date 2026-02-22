@@ -15,13 +15,13 @@ export class Bird {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         
-        // Bird properties (slightly reduced size for easier maneuvering and passage through pipes)
-        // Visual drawing remains appealing; hitbox ties to size for simpler collisions
-        // Gravity/jump further tuned for even easier, more forgiving gameplay
-        this.width = 30;  // Bird width (reduced)
-        this.height = 20; // Bird height (reduced)
-        this.x = 50;      // Starting x position
-        this.y = canvasHeight / 2; // Starting y position (center)
+        // Bird properties scaled for larger canvas (400x700 area)
+        // Maintains proportions for easier maneuvering; visual/hitbox consistent
+        // Gravity/jump tuned for even easier, forgiving gameplay on bigger field
+        this.width = 42;  // Bird width (scaled up ~1.4x)
+        this.height = 28; // Bird height (scaled up ~1.4x)
+        this.x = 70;      // Starting x position (scaled for left offset in wider canvas)
+        this.y = canvasHeight / 2; // Starting y position (center, relative to height)
         this.velocity = 0; // Vertical velocity
         this.gravity = 0.2;  // Gravity pulling down (further reduced for slower, easier fall)
         this.jumpStrength = -7; // Upward velocity on jump (gentler for more controlled flaps)
@@ -63,11 +63,11 @@ export class Bird {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, this.width, this.height);
         
-        // Simple eye for better visibility (adjusted for reduced bird size)
+        // Simple eye for better visibility (adjusted for scaled-up bird size on larger canvas)
         this.ctx.fillStyle = '#fff';
-        this.ctx.fillRect(this.x + 20, this.y + 4, 6, 6);
+        this.ctx.fillRect(this.x + 30, this.y + 4, 8, 8);  // Scaled eye
         this.ctx.fillStyle = '#000';
-        this.ctx.fillRect(this.x + 22, this.y + 6, 2, 2);
+        this.ctx.fillRect(this.x + 33, this.y + 6, 3, 3);
     }
 
     /**
